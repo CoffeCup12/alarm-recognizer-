@@ -34,12 +34,13 @@ def predict_and_send(path):
 
     input = wav_processor.process_data(path)
     predict = mod(input)
-
+    
+    #found the prediction that appears the most within the batch 
     res = np.zeros((5,1))
     for outcome in predict:
         res[outcome.argmax()] += 1
 
-    if res.argmax != 3:
+    if res.argmax() != 3:
         #my_messenger.send(res.argmax())
         print(res.argmax())
 

@@ -23,7 +23,7 @@ class model(nn.Module):
         )
 
         #LSTM layers
-        self.lstm = nn.LSTM(512 * output_channel, 2 * output_channel, batch_first=True)
+        self.lstm = nn.LSTM(128 * output_channel, 2 * output_channel, batch_first=True)
 
         #classification layer
         self.fc = nn.Linear(2 * output_channel, num_categories)

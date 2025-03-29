@@ -2,11 +2,12 @@ import model
 import torch 
 import librosa
 import numpy as np 
+import messenger
 
 
 def process_each_second(section):
     #read .wav and generate spectogram (bin_freq, time_steps) => (height, width)
-    spectogram = librosa.stft(section) 
+    spectogram = librosa.stft(section, n_fft = 512) 
 
     #convert to dB
     spectrogram_dB = librosa.amplitude_to_db(np.abs(spectogram), ref = np.max)
@@ -37,11 +38,16 @@ def process_data(path):
     out = torch.stack(tensors, dim = 0)
 
     return out
+        
+              
 
 
 
 my_model = model.model(1, 32, 3, 5)
-my_model.load_state_dict(torch.load("model.pth", weights_only= True, map_location=torch.device('cpu')))
+my_model.load_state_dict(torch.load("model1.pth", weights_only= True, map_location=torch.device('cpu')))
+
+my_messenger = messenger.messenger()
+
 
 input = process_data("/home/shaoren/Documents/alarm-recognizer-/fire-alarm-33770.wav")
 out = my_model(input)
@@ -51,5 +57,5 @@ res = np.zeros((5,1))
 for outcome in out:
     res[outcome.argmax()] += 1
 
+#my_messenger.send(res.argmax())
 print(res.argmax())
- 

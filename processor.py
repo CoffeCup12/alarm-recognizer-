@@ -7,14 +7,7 @@ import os
 
 
 
-class backend():
-    def __init__(self):
-        self.my_model = model.model(1, 32, 3, 5)
-        self.my_model.load_state_dict(torch.load("model1.pth", weights_only= True, map_location=torch.device('cpu')))
-    
-
-        self.my_messenger = messenger.messenger()
-
+class processor():
     
     def process_each_second(self, section):
         #read .wav and generate spectogram (bin_freq, time_steps) => (height, width)
@@ -51,20 +44,5 @@ class backend():
 
         return out
     
-    def predict_and_send(self, path):
-
-        input = self.process_data(path)
-        out = self.my_model(input)
-
-        res = np.zeros((5,1))
-        for outcome in out:
-            res[outcome.argmax()] += 1
-
-        if res.argmax != 3:
-            #my_messenger.send(res.argmax())
-            print(res.argmax())
-
-        #delete file after process
-        os.remove(path)
         
             

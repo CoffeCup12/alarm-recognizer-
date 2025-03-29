@@ -18,8 +18,6 @@ class messenger():
                 message = "A fire alarm"
             case 2:
                 message = "A gas alarm"
-            case 3:
-                message = "not an alarm"
             case 4:
                 message = "A tusunami alarm"
 
@@ -29,7 +27,7 @@ class messenger():
     def send(self, idx):
 
         email = 'youremail'
-        password = 'your password' #'lxwx biuk iglk qjrl'
+        password = 'your password' 
         receiver = 'reciveremail'
 
         address = receiver.format(self.carriers['osu'])

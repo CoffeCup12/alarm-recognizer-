@@ -34,7 +34,7 @@ class processor():
     def process_data(self, path):
 
         #load spectogram
-        y, sr = librosa.load(path, sr = 16000)
+        y, sr = librosa.load(path, sr = 48000)
 
         #slice into pieces each of 1 second 
         chunks = [y[i:i + sr] for i in range(0, len(y), sr)]

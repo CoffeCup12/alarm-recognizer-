@@ -6,6 +6,7 @@ import numpy as np
 import os
 import model
 import messenger
+import torch
 
 class file_monitor(FileSystemEventHandler):
 
@@ -34,6 +35,7 @@ def predict_and_send(path):
 
     input = wav_processor.process_data(path)
     predict = mod(input)
+    print(predict)
     
     #found the prediction that appears the most within the batch 
     res = np.zeros((5,1))
@@ -44,11 +46,12 @@ def predict_and_send(path):
         #my_messenger.send(res.argmax())
         print(res.argmax())
 
-        #delete file after process
-        os.remove(path)
+    #delete file after process
+    os.remove(path)
 
 
 mod = model.model(1,32,3,5)
+mod.load_state_dict(torch.load("model2.pth", weights_only= True, map_location= torch.device('cpu')))
 wav_processor = processor.processor()
 mail_messenger = messenger.messenger()
 

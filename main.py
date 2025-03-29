@@ -5,6 +5,7 @@ import processor
 import numpy as np
 import os
 import model
+import messenger
 
 class file_monitor(FileSystemEventHandler):
 
@@ -48,6 +49,7 @@ def predict_and_send(path):
 
 mod = model.model(1,32,3,5)
 wav_processor = processor.processor()
+mail_messenger = messenger.messenger()
 
 #get folder path 
 folder_path = os.path.join(os.getcwd(), "wav_files")

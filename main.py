@@ -34,6 +34,7 @@ def process_data(path):
 
     #slice into pieces each of 1 second 
     chunks = [y[i:i + sr] for i in range(0, len(y), sr)]
+    #put the entire recording in a batch of n seconds 
     tensors = [process_each_second(chunk) for chunk in chunks]
     out = torch.stack(tensors, dim = 0)
 
@@ -49,7 +50,7 @@ my_model.load_state_dict(torch.load("model1.pth", weights_only= True, map_locati
 my_messenger = messenger.messenger()
 
 
-input = process_data("/home/shaoren/Documents/alarm-recognizer-/fire-alarm-33770.wav")
+input = process_data("/home/shaoren/Documents/alarm-recognizer-/fire-alarm-9677.wav")
 out = my_model(input)
 
 
